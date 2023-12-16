@@ -1,0 +1,6 @@
+{{define "main"}}   defer dfrr.Wrap(&err, "{{if .RecvName}}{{.RecvName}}.{{end}}{{.FnName}}({{template "percV" .}})"{{if .Params}},{{end}}{{template "plist" .}})
+{{end}}
+
+{{define "plist"}}{{range $index, $item := .Params}}{{if $index}}, {{end}}{{$item.Name}}{{end}}{{end}}
+
+{{define "percV"}}{{range $index, $item := .Params}}{{if $index}}, {{end}}%v{{end}}{{end}}
