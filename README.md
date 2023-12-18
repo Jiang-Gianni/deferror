@@ -5,7 +5,7 @@ Deferror is a Go linter that suggests a customly made `defer` function call when
 ## Install
 
 ```bash
-go install github.com/Jiang-Gianni/deferror@latest
+go install github.com/Jiang-Gianni/deferror/cmd/deferror@latest
 ```
 
 
@@ -131,12 +131,14 @@ which suggests (`dfrr` module will need to be imported):
 defer dfrr.Wrap(&err, "r.MyExample(%v, %v, )", now, i)
 ```
 
+You can clone this repository and try it yourself on the `example` folder.
 
 ## Subpackage templates
 
 By using the [strings](https://pkg.go.dev/strings) package functions it is possible to determine if the analyzed function package name or path contains a substring which means it allows to define subpackage specific templates.
 
-For example you may want to add the complete input list values to the wrapping error message only inside critical package or you need to
+For example you may want to add the complete input list values to the wrapping error message only inside critical package.
+
 ```tmpl
 {{if Contains .PkgPath "/api/"}}
 {{template "apiDefer" .}}
