@@ -25,6 +25,7 @@ type F struct {
 	RecvType    string
 	RecvPointer bool
 	Params      []P
+	ErrName     string
 }
 
 type P struct {

@@ -8,13 +8,14 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-func (a *A) report(fd *ast.FuncDecl) {
+func (a *A) report(fd *ast.FuncDecl, errName string) {
 
 	f := &F{
 		PkgName: a.pass.Pkg.Name(),
 		PkgPath: a.pass.Pkg.Path(),
 		FnName:  fd.Name.String(),
 		Params:  params(fd),
+		ErrName: errName,
 	}
 	f.RecvName, f.RecvType, f.RecvPointer = receiver(fd)
 	// fmt.Printf("\n%+v\n", f)

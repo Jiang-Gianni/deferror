@@ -4,23 +4,21 @@ import (
 	"go/ast"
 )
 
-func (a *A) namedReturnErr(fd *ast.FuncDecl) bool {
+// Return true/false and the name of the error
+func (a *A) namedReturnErr(fd *ast.FuncDecl) (bool, string) {
 	if fd.Type == nil || fd.Type.Results == nil || fd.Type.Results.List == nil {
-		return false
+		return false, ""
 	}
 	for _, field := range fd.Type.Results.List {
 		ident, ok := field.Type.(*ast.Ident)
-		if ok && ident.Name == "error" {
-			for _, name := range field.Names {
-				if name.Name == "err" {
-					return true
-				}
-			}
+		if ok && ident.Name == "error" && field.Names != nil && len(field.Names) > 0 && field.Names[0].Name != "" {
+			return true, field.Names[0].Name
 		}
 	}
-	return false
+	return false, ""
 }
 
+// Function body start with a defer call
 func (a *A) deferStart(fd *ast.FuncDecl) bool {
 	if len(fd.Body.List) == 0 {
 		return false

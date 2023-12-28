@@ -1,6 +1,6 @@
 {{define "main"}}   defer func({{template "input" .}}) {
-    if err != nil {
-        err = fmt.Errorf("{{if .RecvName}}{{.RecvName}}.{{end}}{{.FnName}}({{template "percV" .}}): %w", {{template "plist" .}}{{if .Params}} ,{{end}}err)
+    if {{.ErrName}} != nil {
+        {{.ErrName}} = fmt.Errorf("{{if .RecvName}}{{.RecvName}}.{{end}}{{.FnName}}({{template "percV" .}}): %w", {{template "plist" .}}{{if .Params}} ,{{end}}err)
     }
 }({{template "plist" .}})
 {{end}}

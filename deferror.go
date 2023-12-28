@@ -28,8 +28,8 @@ func run(pass *analysis.Pass) (any, error) {
 	a.inspect.Preorder(nodeFilter, func(n ast.Node) {
 		switch n := n.(type) {
 		case *ast.FuncDecl:
-			if a.namedReturnErr(n) && !a.deferStart(n) {
-				a.report(n)
+			if ok, name := a.namedReturnErr(n); ok && !a.deferStart(n) {
+				a.report(n, name)
 			}
 		}
 	})

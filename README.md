@@ -1,6 +1,6 @@
 # deferror
 
-Deferror is a Go linter that suggests a customly made `defer` function call when the function has a return error named `err` and the function does not already start with a `defer` call.
+Deferror is a Go linter that suggests a customly made `defer` function call when the function has a return named error and the function does not already start with a `defer` call.
 
 ## Install
 
@@ -51,6 +51,7 @@ type F struct {
 	RecvType    string
 	RecvPointer bool
 	Params      []P
+	ErrName     string
 }
 
 type P struct {
@@ -82,7 +83,7 @@ func (r *R) MyExample(now time.Duration, i *int) (a int, err error) {
 The input data map for the template is:
 
 ```go
-&{PkgName:example PkgPath:github.com/Jiang-Gianni/deferror/example FnName:MyExample RecvName:r RecvType:*R RecvPointer:true Params:[{Name:now Type:time.Duration Pointer:false} {Name:i Type:*int Pointer:true}]}
+&{PkgName:example PkgPath:github.com/Jiang-Gianni/deferror/example FnName:MyExample RecvName:r RecvType:*R RecvPointer:true Params:[{Name:now Type:time.Duration Pointer:false} {Name:i Type:*int Pointer:true}] ErrName: err}
 ```
 
 The following defer call is suggested with the default template:
